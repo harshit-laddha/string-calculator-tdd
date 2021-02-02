@@ -31,4 +31,10 @@ public class StringCalculatorTest {
     input = "5,4,3,2,1";
     assertEquals(15, StringCalculator.add(input));
   }
+
+  @Test
+  public void testNewLineCharacter_Two_Number() {
+    String input = "1\n3";
+    assertEquals(4, StringCalculator.add(input));
+  }
 }

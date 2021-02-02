@@ -2,11 +2,11 @@ package com.harshit.incubyte.main;
 
 public class StringCalculator {
   public static int add(String input) {
-    if (!input.contains(",")) {
-      return getInt(input);
+    if (input.isEmpty()) {
+      return 0;
     } else {
       int sum = 0;
-      String[] strArr = input.split(",");
+      String[] strArr = input.split(",|\n");
       for (String n : strArr) {
         sum += getInt(n);
       }
