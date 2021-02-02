@@ -22,4 +22,13 @@ public class StringCalculatorTest {
     String input = "1,4";
     assertEquals(5, StringCalculator.add(input));
   }
+
+  @Test
+  public void testMultipleNumbers() {
+    String input = "1,2,3";
+    assertEquals(6, StringCalculator.add(input));
+
+    input = "5,4,3,2,1";
+    assertEquals(15, StringCalculator.add(input));
+  }
 }
