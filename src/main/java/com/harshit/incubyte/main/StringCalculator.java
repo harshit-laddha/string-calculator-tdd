@@ -2,17 +2,13 @@ package com.harshit.incubyte.main;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StringCalculator {
   public static int add(String input) {
     if (input.startsWith("//")) {
-      Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(input);
-      matcher.matches();
-      String delimitor = matcher.group(1);
-      String inputStr = matcher.group(2);
+      String delimitor = getDelimiterForCustomDelimiter(input);
+      String inputStr = getNumbersForCustomDelimiter(input);
       return getSumFromStringArray(inputStr, delimitor);
     } else {
       if (input.isEmpty()) {
@@ -21,6 +17,14 @@ public class StringCalculator {
         return getSumFromStringArray(input, ",|\n");
       }
     }
+  }
+
+  private static String getDelimiterForCustomDelimiter(String input) {
+    return input.substring(2, input.indexOf("\n"));
+  }
+
+  private static String getNumbersForCustomDelimiter(String input) {
+    return input.substring(input.indexOf("\n") + 1);
   }
 
   private static String[] getStringArray(String input, String delimitor) {

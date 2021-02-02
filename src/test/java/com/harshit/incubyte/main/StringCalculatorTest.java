@@ -94,4 +94,10 @@ public class StringCalculatorTest {
     input = "//,\n1,2,1001";
     assertEquals(3, StringCalculator.add(input));
   }
+
+  @Test
+  public void testMultipleLengthDelimiter() {
+    String input = "//[***]\n1***2***3";
+    assertEquals(6, StringCalculator.add(input));
+  }
 }
