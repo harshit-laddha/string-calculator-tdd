@@ -84,4 +84,14 @@ public class StringCalculatorTest {
       assertEquals("negatives not allowed: -2,-3", e.getMessage());
     }
   }
+
+  @Test
+  public void testNumberBiggerThan1000() {
+    String input = "2,1001";
+    assertEquals(2, StringCalculator.add(input));
+
+    // Custom Delimiter
+    input = "//,\n1,2,1001";
+    assertEquals(3, StringCalculator.add(input));
+  }
 }

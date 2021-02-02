@@ -29,8 +29,12 @@ public class StringCalculator {
 
   private static List<Integer> getIntListFromStringArray(String[] strArr) {
     List<Integer> list = new ArrayList<Integer>();
-    for (String n : strArr) {
-      list.add(getInt(n));
+    for (String numberStr : strArr) {
+      int no = getInt(numberStr);
+      if (no > 1000) {
+        continue;
+      }
+      list.add(no);
     }
     return list;
   }
