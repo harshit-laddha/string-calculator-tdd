@@ -1,6 +1,8 @@
 package com.harshit.incubyte.main;
 
 import static org.junit.Assert.assertEquals;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.junit.Test;
 
 public class StringCalculatorTest {
@@ -42,5 +44,16 @@ public class StringCalculatorTest {
   public void testNewLineCharacterMixWithCommaDelimiter_MultipleNumbers() {
     String input = "1,2\n3";
     assertEquals(6, StringCalculator.add(input));
+  }
+
+  @Test
+  public void testCustomDelimiter() {
+    String input = "//c\n1c2";
+    Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(input);
+    matcher.matches();
+    System.out.println(matcher.group(1));
+    System.out.println(matcher.group(2));
+    assertEquals(3, StringCalculator.add(input));
+
   }
 }
