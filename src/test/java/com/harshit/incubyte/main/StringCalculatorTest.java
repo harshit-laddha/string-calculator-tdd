@@ -37,4 +37,10 @@ public class StringCalculatorTest {
     String input = "1\n3";
     assertEquals(4, StringCalculator.add(input));
   }
+
+  @Test
+  public void testNewLineCharacterMixWithCommaDelimiter_MultipleNumbers() {
+    String input = "1,2\n3";
+    assertEquals(6, StringCalculator.add(input));
+  }
 }
