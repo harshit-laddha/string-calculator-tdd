@@ -1,6 +1,7 @@
 package com.harshit.incubyte.main;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 
 public class StringCalculatorTest {
@@ -60,5 +61,27 @@ public class StringCalculatorTest {
   public void testThrowExceptionForNegativeNumber() {
     String input = "1,-2,3";
     StringCalculator.add(input);
+  }
+
+  @Test
+  public void testExceptionShouldContainNegativeNumber() {
+    String input = "1,-2,3";
+    try {
+      StringCalculator.add(input);
+      fail("Exception should have thrown for negative Number");
+    } catch (RuntimeException e) {
+      assertEquals("negatives not allowed: -2", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testExceptionShouldContainNegativeNumber_Multiple_Negative() {
+    String input = "1,-2,-3";
+    try {
+      StringCalculator.add(input);
+      fail("Exception should have thrown for negative Number");
+    } catch (RuntimeException e) {
+      assertEquals("negatives not allowed: -2,-3", e.getMessage());
+    }
   }
 }
