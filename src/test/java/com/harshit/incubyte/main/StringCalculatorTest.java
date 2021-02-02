@@ -55,4 +55,10 @@ public class StringCalculatorTest {
     String input = "//,\n1,2,3";
     assertEquals(6, StringCalculator.add(input));
   }
+
+  @Test(expected = RuntimeException.class)
+  public void testThrowExceptionForNegativeNumber() {
+    String input = "1,-2,3";
+    StringCalculator.add(input);
+  }
 }

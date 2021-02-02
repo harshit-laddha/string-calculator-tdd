@@ -37,7 +37,12 @@ public class StringCalculator {
     if (str.isEmpty()) {
       return 0;
     } else {
-      return Integer.parseInt(str);
+      int number = Integer.parseInt(str);
+      if (number >= 0) {
+        return number;
+      } else {
+        throw new RuntimeException();
+      }
     }
   }
 }
