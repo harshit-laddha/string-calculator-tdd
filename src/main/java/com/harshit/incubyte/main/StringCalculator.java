@@ -2,33 +2,59 @@ package com.harshit.incubyte.main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StringCalculator {
   public static int add(String input) {
     if (input.startsWith("//")) {
-      String delimitor = getDelimiterForCustomDelimiter(input);
+      Object[] delimitors = getDelimiterForCustomDelimiter(input);
       String inputStr = getNumbersForCustomDelimiter(input);
-      return getSumFromStringArray(inputStr, delimitor);
+      return getSumFromStringArray(inputStr, delimitors);
     } else {
       if (input.isEmpty()) {
         return 0;
       } else {
-        return getSumFromStringArray(input, ",|\n");
+        String[] delimiters = new String[2];
+        delimiters[0] = ",";
+        delimiters[1] = "\n";
+        return getSumFromStringArray(input, delimiters);
       }
     }
   }
 
-  private static String getDelimiterForCustomDelimiter(String input) {
-    return input.substring(2, input.indexOf("\n"));
+  private static Object[] getDelimiterForCustomDelimiter(String input) {
+    List<String> delimiters = new ArrayList<String>();
+    String delimiterString = input.substring(2, input.indexOf("\n"));
+    if (delimiterString.startsWith("[")) {
+      while (!delimiterString.isEmpty()) {
+        String delimiter = delimiterString.substring(delimiterString.indexOf("[") + 1,
+            delimiterString.indexOf("]"));
+        if (!delimiter.isEmpty()) {
+          delimiters.add(delimiter);
+        }
+        delimiterString = delimiterString.substring(delimiterString.indexOf("]") + 1);
+      }
+    } else {
+      delimiters.add(delimiterString);
+    }
+    return delimiters.toArray();
   }
 
   private static String getNumbersForCustomDelimiter(String input) {
     return input.substring(input.indexOf("\n") + 1);
   }
 
-  private static String[] getStringArray(String input, String delimitor) {
-    return input.split(delimitor);
+  private static String[] getStringArray(String input, Object[] delimiters) {
+    String delimiterReg = "";
+    for (Object d : delimiters) {
+      String delimiter = String.valueOf(d);
+      if (!delimiterReg.isEmpty()) {
+        delimiterReg += "|";
+      }
+      delimiterReg += Pattern.quote(delimiter);
+    }
+    return input.split(delimiterReg);
   }
 
   private static List<Integer> getIntListFromStringArray(String[] strArr) {
@@ -43,8 +69,8 @@ public class StringCalculator {
     return list;
   }
 
-  private static int getSumFromStringArray(String input, String delimitor) {
-    List<Integer> noList = getIntListFromStringArray(getStringArray(input, delimitor));
+  private static int getSumFromStringArray(String input, Object[] delimitors) {
+    List<Integer> noList = getIntListFromStringArray(getStringArray(input, delimitors));
     checkForNegativeNumbers(noList);
     return noList.stream().mapToInt(Integer::intValue).sum();
   }

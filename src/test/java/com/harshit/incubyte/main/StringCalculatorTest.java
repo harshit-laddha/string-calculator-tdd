@@ -100,4 +100,10 @@ public class StringCalculatorTest {
     String input = "//[***]\n1***2***3";
     assertEquals(6, StringCalculator.add(input));
   }
+
+  @Test
+  public void testMultipleDelimiter() {
+    String input = "//[*][%][^]\n1*2%*3^4";
+    assertEquals(10, StringCalculator.add(input));
+  }
 }
